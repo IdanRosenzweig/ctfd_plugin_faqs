@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1>FAQs</h1>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 mt-4">
+            
+            {% for faq in faqs %}
+            <div class="mb-5">
+                <h3 class="mb-3 d-flex align-items-center">
+                    <i class="fas fa-chevron-right mr-3" style="font-size: 0.6em; opacity: 0.5;"></i>
+                    <span>{{ faq.question }}</span>
+                </h3>
+                
+                <div class="pl-4 ml-2 border-left" style="border-width: 3px !important; border-color: rgba(128, 128, 128, 0.3) !important;">
+                    <p class="mb-0" style="font-size: 1.05rem;">
+                        {{ faq.answer | safe }}
+                    </p>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center text-muted py-4">
+                <h4>No FAQs have been added yet.</h4>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
