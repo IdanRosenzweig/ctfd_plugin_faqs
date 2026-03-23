@@ -10,6 +10,7 @@ from .utils import database
 def load(app):
   app.db.create_all()
 
+  # faqs blueprint
   faqs_bp = Blueprint("faqs", __name__, template_folder="templates")
 
   @faqs_bp.route("/faqs", methods=["GET"])
@@ -52,5 +53,8 @@ def load(app):
 
   app.register_blueprint(faqs_bp)
   
+  # register the admin dashboard in the admin menu bar
   register_admin_plugin_menu_bar("faqs", "/admin/faqs")
+  
+  # register the page in the user menu bar
   register_user_page_menu_bar("faqs", "/faqs")
