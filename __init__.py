@@ -15,9 +15,13 @@ def load(app):
 
   @faqs_bp.route("/faqs", methods=["GET"])
   def faqs_page():
+    if request.method == "GET":
       faqs = database.get_all()
       return render_template("faqs.html", faqs=faqs)
-
+    
+    else:
+      return abort(400)
+    
   @faqs_bp.route("/admin/faqs", methods=["GET", "POST"])
   @admins_only
   def admin_faqs_dashboard():
