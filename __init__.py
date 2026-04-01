@@ -61,4 +61,4 @@ def load(app):
   register_admin_plugin_menu_bar("faqs", "/admin/faqs")
   
   # register the page in the user menu bar
-  register_user_page_menu_bar("faqs", "/faqs")
+  register_user_page_menu_bar("FAQs", "/faqs")
