@@ -2,34 +2,42 @@ from CTFd.models import db
 
 
 class Faqs(db.Model):
-  __tablename__ = "faqs"
-  
-  # faq id
-  id = db.Column(db.Integer, primary_key=True)
-  
-  # faq question
-  question = db.Column(db.Text)
-  
-  # faq answer
-  answer = db.Column(db.Text)
+    __tablename__ = "faqs"
 
-def add(
-    question,
-    answer
-  ) -> None:
-  new_faq = Faqs(question=question, answer=answer)
-  db.session.add(new_faq)
-  db.session.commit()
+    # faq id
+    id = db.Column(db.Integer, primary_key=True)
 
-def remove(faq_id) -> None:
-  faq = Faqs.query.filter_by(id=faq_id).first()
-  if faq:
-    db.session.delete(faq)
+    # faq question
+    question = db.Column(db.Text)
+
+    # faq answer
+    answer = db.Column(db.Text)
+
+    @property
+    def html(self):
+        from CTFd.utils.config.pages import build_html
+        from CTFd.utils.helpers import markup
+
+        return markup(build_html(self.answer or ""))
+
+
+def add(question, answer) -> None:
+    new_faq = Faqs(question=question, answer=answer)
+    db.session.add(new_faq)
     db.session.commit()
 
+
+def remove(faq_id) -> None:
+    faq = Faqs.query.filter_by(id=faq_id).first()
+    if faq:
+        db.session.delete(faq)
+        db.session.commit()
+
+
 def remove_all() -> None:
-  Faqs.query.delete()
-  db.session.commit()
-  
+    Faqs.query.delete()
+    db.session.commit()
+
+
 def get_all():
-  return Faqs.query.all()
+    return Faqs.query.all()
